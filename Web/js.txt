@@ -70,3 +70,41 @@ console.log(b)
 Template String
 let a=2;
 console.log(`value of a: ${a}`);
+
+== loose comparison 1=='1' true
+=== strict comparison 1==='1' false
+
+In JS all the functions declaration are pushed to top
+var used to declare variable has scope in whole function
+eg. if declared in loop then too var has scope outside loop whereas let and const do not
+
+foo()
+function foo(a,b){
+..
+}
+// this is correct
+
+i=2;
+console.log(i);
+var i=1;
+//this will log 2
+
+Frontend - Vanilla JS
+reference home.iitk.ac.in/~somvt/index1.html
+querySelector(HeaderAbout)
+
+Closures
+function foo(){
+let b=1;
+return function bar(){return b;};
+}
+const func=foo();
+func();
+
+setTimeout(<function>, millisecond)
+
+Event Loop - Call Stack Message Queue => Loupe
+
+Promises
+fetch(url,cb)
+fetch("https://..",res=>{console.log("Data Received");})
