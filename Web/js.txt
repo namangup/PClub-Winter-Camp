@@ -1,0 +1,72 @@
+For variable declaration : let , const , var
+eg. let a=2;
+semicolon is preferable but not necessary
+
+Datatypes - Number , Boolean , String , Null , undefined
+
+Function
+function foo(a,b){
+...
+}
+const foo=(a,b)=>{
+...
+}
+
+Arrays
+let arr=[1,2,'foo',true] // can store different types
+arr.push(2)
+arr.pop()
+let arr=[1,2,3]
+arr.forEach(a=>console.log(a)) // iterates through each element and executes the statement
+let arr2=arr.map(a => a+1) // increments each value
+let arr3= arr.filter(a => a%2 +1) //keeps only those elements which are odd
+let res = arr.reduce((a,b) => a+b*b) // in reduce function first element is accumulator second is iterator // here it will return 14
+
+Print on console
+console.log()
+
+Objects
+const obj = {
+a: 1,
+b: 'hello',
+c: true,
+d: (a,b) => a+b ,
+}
+obj.a ,obj.b ...
+obj.d(1,2) // returns 3
+obj.e =5 // to add another property in object
+
+Loops
+for(let i=0;i<10;i++){
+..
+}
+while(..){
+...
+}
+for(let a in obj){
+console.log(a,obj[a])
+}
+
+TypeCast
+1.toString() //"1"
+parseInt("1") //1
+parseFloat("1.23") //1.23
+
+Spread
+let arr=[1,2,3,4];
+function foo(a,b,c,d)
+{
+return a+b+c+d;
+}
+foo(...arr); //returns 10
+let obj={a:1,b:2};
+let obj2={...obj,c:3};
+
+Object Destructuring
+const {a,c} = obj2
+console.log(a)
+console.log(b)
+
+Template String
+let a=2;
+console.log(`value of a: ${a}`);

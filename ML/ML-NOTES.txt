@@ -1,0 +1,455 @@
+scipy.stats as st
+
+np.mean(array)
+mp.median(array)
+st.mode(array)
+np.var(array) OR vals.var()
+np.std(array) OR vals.std()
+
+st.skew(array)
+st.kurtosis(array)
+
+np.corrcoef(x,y)// returns a matrix
+np.cov(x,y)
+
+np.random.randint(18,90,500)
+np.random.normal(0,1,1000)
+x=np.arrange(-3,3,0.01)
+st.norm.pdf(x)
+st.norm.pdf(x, 1.0,0.5)
+np.random.rand(100)
+
+np.percentile(array,50)
+np.percentile(array,75)
+
+import matplotlib.pyplot as plt
+
+//plot
+axes = plt.axes()
+axes.set_xlim([-5, 5])
+axes.set_ylim([0, 1.0])
+axes.set_xticks([-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5])
+axes.set_yticks([0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0])
+axes.grid()
+//b-, r:,etc
+plt.xlabel('Greebles')
+plt.ylabel('Probability')
+plt.plot(x, norm.pdf(x), 'b-')
+plt.plot(x, norm.pdf(x, 1.0, 0.5), 'r:')
+plt.legend(['Sneetches', 'Gacks'], loc=4)
+plt.show()
+
+
+//pie
+values = [12, 55, 4, 32, 14]
+colors = ['r', 'g', 'b', 'c', 'm']
+explode = [0, 0, 0.2, 0, 0]
+labels = ['India', 'United States', 'Russia', 'China', 'Europe']
+plt.pie(values, colors= colors, labels=labels, explode = explode)
+plt.title('Student Locations')
+plt.show()
+
+
+//bar
+values = [12, 55, 4, 32, 14]
+colors = ['r', 'g', 'b', 'c', 'm']
+plt.bar(range(0,5), values, color= colors)
+
+
+scatter plot
+
+
+
+//hist
+incomes = np.random.normal(27000, 15000, 10000)
+plt.hist(incomes, 50)
+plt.show()
+
+
+ 
+//linear regression
+np.random.seeds(2)
+pagespeeds=np.random.normal(3,1,1000)
+purchaseAmount = 100 - (pageSpeeds + np.random.normal(0, 0.5, 1000)) * 3
+slope, intercept, r_value, p_value, std_err = st.linregress(pageSpeeds, purchaseAmount)
+//gives you all the details
+
+
+
+####################logistic regression###########
+from sklearn import linear_model,metrics
+reg=linear_model.LogisticRegression()
+reg.fit(train_data,train_out)
+y_pred = reg.predict(test_data) 
+metrics.accuracy_score(test_out, y_pred) 
+
+//polynomial regression
+purchaseAmount=np.random.normal(50,10,1000)/scatter
+p4=np.poly1d(np.polyfit(x,y,4))
+xp=np.linspace(0,7,100)
+plt.scatter(x,y)
+plt.plot(xp,p4(x4),c='r')
+plt.show()
+
+from sklearn.metrics import r2_score
+r2=r2_score(y,p4(x))
+print(r2)
+
+//pandas
+import pandas as pd
+df=pd.read_csv("PastHires.csv")
+df.head(num)
+df.tail(num)
+df.shape
+df.size
+len(df)
+df.columns
+df['Hired']//will be an object will have to convert to array
+df['coloumn_tag'][:5]
+df[['column1','column2']]
+df.sort_values(['column_tag])
+a=df[column_tag].value_counts()
+a.plot(kind='bar')
+
+################# multivariate ################
+import statsmodels.api as sm
+from sklearn.preprocessing import StandardScaler
+scale=StandardScaler()
+
+X=df[['column1','column2','column3']]
+Y=df['price'] 
+X[['column1','column2','column3']]=scale.fit_transform(X[['column1','column2','column3']].as_matrix())
+
+est=sm.OLS(y,X).fit()//ordinary least square method
+est.summary()
+
+Y.groupby(df.column_tag).mean()
+
+%%sm.add_constant(Array) and ones in the starting
+
+####### classificaition of email or naive bayes theorem ############
+
+	import os
+import io
+import numpy
+from pandas import DataFrame
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.naive_bayes import MultinomialNB
+
+def readFiles(path):
+    for root, dirnames, filenames in os.walk(path):
+        for filename in filenames:
+            path = os.path.join(root, filename) 
+
+            inBody = False
+            lines = []
+            f = io.open(path, 'r', encoding='latin1')
+            for line in f:
+                if inBody:
+                    lines.append(line)
+                elif line == '\n':
+                    inBody = True
+            f.close()
+            message = '\n'.join(lines)
+            yield path, message ##imp
+
+
+def dataFrameFromDirectory(path, classification):
+    rows = []
+    index = []
+    for filename, message in readFiles(path):
+        rows.append({'message': message, 'class': classification})
+        index.append(filename)
+
+    return DataFrame(rows, index=index)
+
+data = DataFrame({'message': [], 'class': []})
+
+data = data.append(dataFrameFromDirectory('D:\[FreeTutorials.Us] Udemy -  data-science-and-machine-learning-with-python-hands-on\DataScience-Python3\emails\spam', 'spam'))
+data = data.append(dataFrameFromDirectory('D:\[FreeTutorials.Us] Udemy -  data-science-and-machine-learning-with-python-hands-on\DataScience-Python3\emails\ham', 'ham'))
+
+
+# training multinomialNB()
+vectorizer = CountVectorizer()
+counts = vectorizer.fit_transform(data['message'].values)
+classifier = MultinomialNB()
+targets = data['class'].values
+classifier.fit(counts, targets)
+
+examples = ['Free Viagra now!!!', "Hi Bob, how about a game of golf tomorrow?"]
+example_counts = vectorizer.transform(examples)
+predictions = classifier.predict(example_counts)
+predictions
+##########################  KMeans ###########################
+from sklearn.cluster import KMeans
+import matplotlib.pyplot as plt
+from sklearn.preprocessing import scale
+from numpy import random, float
+
+data = createClusteredData(100, 5)
+
+model = KMeans(n_clusters=5)
+print(scale(data))
+# Note I'm scaling the data to normalize it! Important for good results.
+model = model.fit(scale(data))
+
+# We can look at the clusters each data point was assigned to
+print(model.labels_)
+
+#################################Decision Trees##############
+df.pd.resd_csv(path,header=0)
+d = {'Y': 1, 'N': 0}
+df['Hired'] = df['Hired'].map(d)
+df['Employed?'] = df['Employed?'].map(d)
+df['Top-tier school'] = df['Top-tier school'].map(d)
+df['Interned'] = df['Interned'].map(d)
+d = {'BS': 0, 'MS': 1, 'PhD': 2}
+df['Level of Education'] = df['Level of Education'].map(d)
+##Beacause decision trees requires all the variables in integer value
+features = list(df.columns[:n])#n is the number of dependent variables 
+y = df["Hired"]
+X = df[features]
+clf = tree.DecisionTreeClassifier()
+clf = clf.fit(X,y)
+from IPython.display import Image  
+from sklearn.externals.six import StringIO  
+import pydotplus
+
+dot_data = StringIO()  
+tree.export_graphviz(clf, out_file=dot_data,  
+                         feature_names=features)  
+graph = pydotplus.graph_from_dot_data(dot_data.getvalue())  
+Image(graph.create_png())
+#############################Random Forest#############
+from sklearn.ensemble import RandomForestClassifier
+
+clf = RandomForestClassifier(n_estimators=10)
+clf = clf.fit(X, y)
+
+#Predict employment of an employed 10-year veteran
+print (clf.predict([[10, 1, 4, 0, 0, 0]]))
+#...and an unemployed 10-year veteran
+print (clf.predict([[10, 0, 4, 0, 0, 0]])
+
+
+##########SVM############
+from sklearn import svm, datasets
+
+C = 1.0
+svc = svm.SVC(kernel='linear', C=C).fit(X, y) #kernel is the boundary function
+print(svc.predict([[200000, 40]]))
+
+##########K-Means Rating##################
+
+import pandas as pd
+
+r_cols = ['user_id', 'movie_id', 'rating']
+ratings = pd.read_csv('D:\[FreeTutorials.Us] Udemy -  data-science-and-machine-learning-with-python-hands-on\DataScience-Python3\ml-100k\u.data', sep='\t', names=r_cols, usecols=range(3))
+ratings.head()
+
+import numpy as np
+movieProperties = ratings.groupby('movie_id').agg({'rating': [np.size, np.mean]})
+movieProperties.head()
+
+movieNumRatings = pd.DataFrame(movieProperties['rating']['size'])
+movieNormalizedNumRatings = movieNumRatings.apply(lambda x: (x - np.min(x)) / (np.max(x) - np.min(x)))
+movieNormalizedNumRatings.head()
+
+movieDict = {}
+with open(r'D:\[FreeTutorials.Us] Udemy -  data-science-and-machine-learning-with-python-hands-on\DataScience-Python3\ml-100k\u.item') as f:
+    temp = ''
+    for line in f:
+        #line.decode("ISO-8859-1")
+        fields = line.rstrip('\n').split('|')
+        movieID = int(fields[0])
+        name = fields[1]
+        genres = fields[5:25]
+        genres = map(int, genres)
+        movieDict[movieID] = (name, np.array(list(genres)), movieNormalizedNumRatings.loc[movieID].get('size'), movieProperties.loc[movieID].rating.get('mean'))
+
+from scipy import spatial
+
+def ComputeDistance(a, b):
+    genresA = a[1]
+    genresB = b[1]
+    genreDistance = spatial.distance.cosine(genresA, genresB)
+    popularityA = a[2]
+    popularityB = b[2]
+    popularityDistance = abs(popularityA - popularityB)
+    return 100*genreDistance*popularityDistance
+    
+ComputeDistance(movieDict[2], movieDict[4])
+
+import operator
+
+def getNeighbors(movieID, K):
+    distances = []
+    for movie in movieDict:
+        if (movie != movieID):
+            dist = ComputeDistance(movieDict[movieID], movieDict[movie])
+            distances.append((movie, dist))
+    distances.sort(key=operator.itemgetter(1))
+    neighbors = []
+    for x in range(K):
+        neighbors.append(distances[x][0])
+    return neighbors
+for K in range(2,20):
+    avgRating = 0
+    neighbors = getNeighbors(1, K)
+    for neighbor in neighbors:
+        avgRating += movieDict[neighbor][3]
+        #print (movieDict[neighbor][0] + " " + str(movieDict[neighbor][3]))
+    
+    avgRating /= K
+    print(avgRating,K)
+
+################ use of re #############
+
+import re
+
+format_pat= re.compile(
+    r"(?P<host>[\d\.]+)\s"
+    r"(?P<identity>\S*)\s"
+    r"(?P<user>\S*)\s"
+    r"\[(?P<time>.*?)\]\s"
+    r'"(?P<request>.*?)"\s'
+    r"(?P<status>\d+)\s"
+    r"(?P<bytes>\S*)\s"
+    r'"(?P<referer>.*?)"\s'
+    r'"(?P<user_agent>.*?)"\s*'
+)
+
+URLCounts = {}
+
+with open(logPath, "r") as f:
+    for line in (l.rstrip() for l in f):
+        match= format_pat.match(line)
+        if match:
+            access = match.groupdict()
+            agent = access['user_agent']
+            if (not('bot' in agent or 'spider' in agent or 
+                    'Bot' in agent or 'Spider' in agent or
+                    'W3 Total Cache' in agent or agent =='-')):
+                request = access['request']
+                fields = request.split()
+                if (len(fields) == 3):
+                    (action, URL, protocol) = fields
+                    if (URL.endswith("/")):
+                        if (action == 'GET'):
+                            if URL in URLCounts:
+                                URLCounts[URL] = URLCounts[URL] + 1
+                            else:
+                                URLCounts[URL] = 1
+
+results = sorted(URLCounts, key=lambda i: int(URLCounts[i]), reverse=True)
+
+for result in results[:20]:
+    print(result + ": " + str(URLCounts[result]))
+
+#################PCA############
+from sklearn.datasets import load_iris
+from sklearn.decomposition import PCA
+
+iris = load_iris()
+
+numSamples, numFeatures = iris.data.shape
+print(numSamples)
+print(numFeatures)
+print(list(iris.target_names))
+
+X = iris.data
+pca = PCA(n_components=2, whiten=True).fit(X)
+X_pca = pca.transform(X)
+print(pca.explained_variance_ratio_)
+print(sum(pca.explained_variance_ratio_))
+
+//graphic
+from pylab import *
+
+colors = cycle('rgb')
+target_ids = range(len(iris.target_names))
+pl.figure()
+for i, c, label in zip(target_ids, colors, iris.target_names):
+    pl.scatter(X_pca[iris.target == i, 0], X_pca[iris.target == i, 1],
+        c=c, label=label)
+pl.legend()
+pl.show()
+###############K-Fold Crossvalidation############
+import numpy as np
+from sklearn.model_selection import cross_val_score, train_test_split
+from sklearn import datasets
+from sklearn import svm
+
+iris = datasets.load_iris()
+
+# Split the iris data into train/test data sets with 40% reserved for testing
+X_train, X_test, y_train, y_test = train_test_split(iris.data, iris.target, test_size=0.4, random_state=0)
+
+# Build an SVC model for predicting iris classifications using training data
+clf = svm.SVC(kernel='linear', C=1).fit(X_train, y_train)
+
+# Now measure its performance with the test data
+clf.score(X_test, y_test)   
+
+# We give cross_val_score a model, the entire data set and its "real" values, and the number of folds:
+scores = cross_val_score(clf, iris.data, iris.target, cv=5)
+
+# Print the accuracy for each fold:
+print(scores)
+
+# And the mean accuracy of all 5 folds:
+print(scores.mean())
+
+clf = svm.SVC(kernel='poly', C=1).fit(X_train, y_train)
+scores = cross_val_score(clf, iris.data, iris.target, cv=5)
+print(scores)
+print(scores.mean())
+
+// No! The more complex polynomial kernel produced lower accuracy than a simple linear kernel. The polynomial kernel is overfitting. But we couldn't have told that with a single train/test split:
+
+##########Keras model############
+from tensorflow.keras.layers import Dense, Dropout
+from tensorflow.keras.models import Sequential
+from sklearn.model_selection import cross_val_score
+
+def create_model():
+    model = Sequential()
+    #16 feature inputs (votes) going into an 32-unit layer 
+    model.add(Dense(32, input_dim=16, kernel_initializer='normal', activation='relu'))
+    # Another hidden layer of 16 units
+    model.add(Dense(16, kernel_initializer='normal', activation='relu'))
+    # Output layer with a binary classification (Democrat or Republican political party)
+    model.add(Dense(1, kernel_initializer='normal', activation='sigmoid'))
+    # Compile model
+    model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
+    return model
+
+from tensorflow.keras.wrappers.scikit_learn import KerasClassifier
+
+# Wrap our Keras model in an estimator compatible with scikit_learn
+estimator = KerasClassifier(build_fn=create_model, epochs=100, verbose=0)
+# Now we can use scikit_learn's cross_val_score to evaluate this model identically to the others
+cv_scores = cross_val_score(estimator, all_features, all_classes, cv=10)
+cv_scores.mean()
+###################data cleaning#######################
+import pandas as pd
+
+feature_names =  ['party','handicapped-infants', 'water-project-cost-sharing', 
+                    'adoption-of-the-budget-resolution', 'physician-fee-freeze',
+                    'el-salvador-aid', 'religious-groups-in-schools',
+                    'anti-satellite-test-ban', 'aid-to-nicaraguan-contras',
+                    'mx-missle', 'immigration', 'synfuels-corporation-cutback',
+                    'education-spending', 'superfund-right-to-sue', 'crime',
+                    'duty-free-exports', 'export-administration-act-south-africa']
+
+voting_data = pd.read_csv('house-votes-84.data.txt', na_values=['?'], 
+                          names = feature_names)
+voting_data.head()
+voting_data.describe()
+
+voting_data.dropna(inplace=True)
+voting_data.describe()
+voting_data.replace(('y', 'n'), (1, 0), inplace=True)
+voting_data.replace(('democrat', 'republican'), (1, 0), inplace=True)
+all_features = voting_data[feature_names].drop('party', axis=1).values
+all_classes = voting_data['party'].values
