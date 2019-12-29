@@ -2,11 +2,19 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const Student = require('./models/student.js');
+const DB_URL = "mongodb://localhost:27017/PClub";
+const mongoose = require('mongoose');
+
 
 app.use(bodyParser.urlencoded({
     extended: true
   }));
+
 app.use(bodyParser.json());
+
+app.get('/a',(req,res)=>{
+    res.send('Hello Kitty');
+});
 
 app.post('/a',(req,res)=>{
     //console.log(req);
@@ -19,10 +27,6 @@ app.post('/a',(req,res)=>{
     });
 });
 
-app.listen(8000,()=>{
-    console.log('server is up');
-});
-
 app.post('/new',async (req,res)=>{
     const {name,rollNo}=req.body;
     const student = new Student({
@@ -30,8 +34,16 @@ app.post('/new',async (req,res)=>{
         rollNo:rollNo
     });
     await student.save();
-    console.log(student);
+    console.log(stude   nt);
     res.send('created new');
+});
+
+app.listen(8000,()=>{
+    console.log('server is up');
+});
+
+mongoose.connect(DB_URL).then(()=>{
+    console.log('connected to db');
 });
 /*
 (req,res,next)=>{
