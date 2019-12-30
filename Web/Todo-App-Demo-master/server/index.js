@@ -8,7 +8,7 @@ app.use(cookieParser());
 app.use(bodyParser());
 
 app.use('/users', require('./routes/users.js'));
-app.use('/notes', require('./routes/notes.js'));
+app.use('/notes', require('./routes/notes.js').default);
 
 const DB_URL = 'mongodb://localhost:27017/todo-app';
 const PORT = 8000;

@@ -1,8 +1,9 @@
 const mongoose = require('mongoose');
 
 const noteSchema = new mongoose.Schema({
- title: String,
-  body: String
+  title: String,
+  body: String,
+  userId: String,
 })
 
 const Note = mongoose.model('Note', noteSchema);

@@ -34,7 +34,7 @@ app.post('/new',async (req,res)=>{
         rollNo:rollNo
     });
     await student.save();
-    console.log(stude   nt);
+    console.log(student);
     res.send('created new');
 });
 
