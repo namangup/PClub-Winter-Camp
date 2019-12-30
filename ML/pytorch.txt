@@ -22,3 +22,7 @@ Non linearity
         Softmax
         Leaky Relu
         tanh
+
+pytorch L.backward() automatically back-propogates using any optimizer
+Here L is the loss function
+
