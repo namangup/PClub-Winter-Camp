@@ -16,10 +16,9 @@ Avg Pool
     pytorch global avg pool 
     Average Pooling: Calculate the average value for each patch on the feature map.
 Non linearity
-
-Activation Functions
-    Sigmoid
-    RelU
-    Softmax
-    Leaky Relu
-    tanh
+    Activation Functions
+        Sigmoid
+        RelU
+        Softmax
+        Leaky Relu
+        tanh
