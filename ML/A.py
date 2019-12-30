@@ -1,4 +1,5 @@
 import numpy as np
+import random
 
 class Network(object):
     def __init__(self,sizes):

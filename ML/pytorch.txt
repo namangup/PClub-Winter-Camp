@@ -1,0 +1,25 @@
+30/12 - Nirmal
+
+Minibatches
+Dataset
+    Transform
+    Batch Size
+Dataloader
+Optimizer
+Losses
+Pre/Post Epoch
+Model
+
+Conv Layer - Weights
+    http://cs231n.github.io/convolutional-networks/#conv
+Avg Pool
+    pytorch global avg pool 
+    Average Pooling: Calculate the average value for each patch on the feature map.
+Non linearity
+
+Activation Functions
+    Sigmoid
+    RelU
+    Softmax
+    Leaky Relu
+    tanh
