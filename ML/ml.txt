@@ -1,0 +1,17 @@
+LA
+Prob Stats
+Optimization
+Calculus
+
+Optional-
+Information Theory
+Topology
+
+cs229
+cs331
+
+resnet
+lenet
+vggnet
+deeplearning.ai
+objectDetection
