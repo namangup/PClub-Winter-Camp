@@ -19,7 +19,7 @@ const userSchema = new mongoose.Schema({
 const KEY = process.env.JWT_KEY || '38hf98hf29fh29fh2fh2f';
 
 userSchema.methods.generateToken = function() {
-  const token = jwt.sign({username: this.username}, KEY);
+  const token = jwt.sign({userId: this._id}, KEY);
   return token;
 }
 

@@ -1,14 +1,16 @@
 const router = require('express').Router();
 const Note = require('../models/Note.js');
+const auth=require('../middleware/auth.js');
 
-router.get('/view', async (req, res) => {
-  const notes = await Note.find().lean();
+router.get('/view',auth, async (req, res) => {
+  const id = req.userId;
+  const notes = await Note.find({userId:id}).lean();
   res.send(notes);
 })
 
-router.post('/new', async (req, res) => {
+router.post('/new',auth, async (req, res) => {
   const {title, body} = req.body;
-  const note = new Note({title: title, body: body});
+  const note = new Note({title: title, body: body,userId:req.userId});
   await note.save();
   res.send(note);
 })

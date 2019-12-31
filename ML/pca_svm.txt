@@ -1,0 +1,22 @@
+Principal Component Analysis PCA
+
+    Reduce Dimensions of test data X(m,n) to X(m,k).
+    Convert from original basis to eigen vector basis.
+    Symmetric matrix has n orthogonal eigen values
+    A=PDP^-1
+    D-Diagonal matrix sorted in descending order of eigne values
+    P corresponding eigen vectors in each column
+
+Support Vector Machines- Classification
+
+    Support vectors - Vectors(datapoints) closest to hyperplane(1 dimension less than the vectorspace)
+    y_n = 1 when wx_n +b >0
+    y_n= -1 when wx_n +b <0 here y_n = classification variable 
+    Essentially y(wx+b)>0 but to increase margin y(wx+b)>1
+
+    In Classification we get a smooth classification boundary when ||w|| is less, so we add lambda /2 (||w||) to loss function 
+    This is known as regularization
+
+    margin = min(i=1 to n) (|wx+b|)/||w|| > 1/||w|| = 2/||w|| 
+    maximize 2/||w|| => minimize ||w||/2 => minimize ||w||^2/2
+    
