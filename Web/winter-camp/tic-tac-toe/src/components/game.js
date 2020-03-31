@@ -2,15 +2,47 @@ import React from 'react';
 import Board from './board';
 
 class Game extends React.Component {
-  state={
-    board: new Array(9).fill(''),
-    turn:'X',
-    status:'none',
+  constructor(props) {
+    super(props);
+    this.state={
+      board: new Array(9).fill(''),
+      turn:'X',
+      status:'',
+      update:1,
+    }
+  }
+  shouldComponentUpdate(nextProps, nextState){
+    console.log(`Render ${this.state.update}`);
+    console.log(nextState.update);
+    if(nextState.update === 1) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+  reset=()=>{
+    if(this.state.status){
+      console.log('reset');
+      console.log(this.state);
+      this.setState({
+        update:0
+      });
+      this.setState({
+        board: new Array(9).fill(''),
+        turn:'X',
+        status:'',
+      });
+      this.setState({
+        update:1
+      });
+      console.log(this.state);
+    }
   }
   checkDraw=()=>{
     console.log('check draw');
     const board=this.state.board;
-    if(this.state.status==='none')
+    if(!this.state.status)
     {
       let flag=1;
       for(let i=0;i<9;i++)
@@ -34,10 +66,8 @@ class Game extends React.Component {
     let board=this.state.board;
     //row
     let flag=1;
-    for(let i=0;i<9&&flag;i+=3)
-    {
-      if(board[i]!==''&&(board[i]===board[i+1])&&(board[i+1]===board[i+2]))
-      {
+    for(let i=0;i<9&&flag;i+=3){
+      if(board[i]!==''&&(board[i]===board[i+1])&&(board[i+1]===board[i+2])){
         this.setState({
           status:board[i]
         })
@@ -46,10 +76,8 @@ class Game extends React.Component {
       }
     }
     //column
-    for(let i=0;i<3&&flag;i++)
-    {
-      if(board[i]!==''&&(board[i]===board[i+3])&&(board[i+3]===board[i+6]))
-      {
+    for(let i=0;i<3&&flag;i++){
+      if(board[i]!==''&&(board[i]===board[i+3])&&(board[i+3]===board[i+6])){
         this.setState({
           status:board[i]
         })
@@ -58,15 +86,13 @@ class Game extends React.Component {
       }
     }
     //diagonal
-    if(board[4]!==''&&(board[0]===board[4])&&(board[4]===board[8])&&flag)
-    {
+    if(board[4]!==''&&(board[0]===board[4])&&(board[4]===board[8])&&flag){
       this.setState({
         status:board[4]
       })
       flag=0;
     }
-    if(board[4]!==''&&(board[6]===board[4])&&(board[4]===board[2])&&flag)
-    {
+    if(board[4]!==''&&(board[6]===board[4])&&(board[4]===board[2])&&flag){
       this.setState({
         status:board[4]
       })
@@ -74,9 +100,11 @@ class Game extends React.Component {
     }
   }
   makeMove=(i)=>{
-    console.log('Called');
+    this.reset();
+    console.log(this.state);
+    console.log(i);
     let {board,turn}=this.state;
-    if(board[i]===''&&this.state.status==='none')
+    if(board[i]===''&&!this.state.status)
     {  board[i]=turn;
       if(turn==='X')
       {
@@ -106,7 +134,7 @@ class Game extends React.Component {
           fun={this.makeMove}/>
         </div>
         <div className="game-info">
-          <div>{this.state.status}</div>
+          <div>Winner : {this.state.status}</div>
         </div>
       </div>
     );
